@@ -267,7 +267,7 @@ export default function CalorieCalculatorPage() {
                 </Card>
 
                 {/* Goal-Based Calories */}
-                <Card className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
+                <Card className="animate-slide-up">
                   <CardHeader>
                     <CardTitle>Goal-Based Calorie Targets</CardTitle>
                     <CardDescription>Adjust your intake based on your fitness goals</CardDescription>

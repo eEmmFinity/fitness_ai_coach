@@ -110,7 +110,6 @@ export default function HomePage() {
                   key={index}
                   hover
                   className="text-center animate-slide-up"
-                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <CardContent className="pt-6">
                     <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center">

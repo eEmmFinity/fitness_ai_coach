@@ -61,11 +61,16 @@ export async function POST(request: NextRequest) {
       })),
       generalNotes: routine.generalNotes.join('\n\n'),
       nutritionTips: routine.nutrition.join('\n\n'),
+      createdAt: new Date(),
     };
+
+    // Auto-save the generated workout plan to the user's profile
+    user.workoutPlan = workoutPlan;
+    await user.save();
 
     return NextResponse.json(
       {
-        message: 'Routine generated successfully',
+        message: 'Routine generated and saved successfully',
         workoutPlan,
         userProfile: {
           goal: user.goal,

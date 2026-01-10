@@ -125,7 +125,6 @@ export default function DashboardPage() {
                 key={index}
                 hover
                 className="animate-slide-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CardContent className="pt-6">
                   <div className="flex items-center justify-between mb-4">
@@ -146,7 +145,7 @@ export default function DashboardPage() {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          <Card hover className="animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <Card hover className="animate-slide-up">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
@@ -172,7 +171,7 @@ export default function DashboardPage() {
             </CardContent>
           </Card>
 
-          <Card hover className="animate-slide-up" style={{ animationDelay: '0.5s' }}>
+          <Card hover className="animate-slide-up">
             <CardHeader>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center">
@@ -200,7 +199,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Calculators Section */}
-        <Card className="animate-slide-up" style={{ animationDelay: '0.6s' }}>
+        <Card className="animate-slide-up">
           <CardHeader>
             <CardTitle>Fitness Calculators</CardTitle>
             <CardDescription>Track your metrics and optimize your nutrition</CardDescription>

@@ -271,7 +271,7 @@ export default function BMICalculatorPage() {
         </div>
 
         {/* Information Section */}
-        <Card className="mt-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+        <Card className="mt-6 animate-slide-up">
           <CardHeader>
             <CardTitle>About BMI</CardTitle>
           </CardHeader>

@@ -93,7 +93,6 @@ export default function CalculatorsPage() {
                 <Card
                   hover
                   className="h-full animate-slide-up cursor-pointer group"
-                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <CardHeader>
                     <div className="flex items-start justify-between mb-4">
@@ -128,7 +127,7 @@ export default function CalculatorsPage() {
         </div>
 
         {/* Tips Section */}
-        <Card className="mt-8 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+        <Card className="mt-8 animate-slide-up">
           <CardHeader>
             <CardTitle>Tips for Accurate Results</CardTitle>
           </CardHeader>

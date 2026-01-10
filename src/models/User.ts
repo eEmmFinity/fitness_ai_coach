@@ -1,5 +1,27 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
+interface Exercise {
+  name: string;
+  sets: number;
+  reps: string;
+  rest: string;
+  notes?: string;
+}
+
+interface WorkoutDay {
+  day: string;
+  focus: string;
+  duration: string;
+  exercises: Exercise[];
+}
+
+interface WorkoutPlan {
+  weeklySchedule: WorkoutDay[];
+  generalNotes: string;
+  nutritionTips: string;
+  createdAt?: Date;
+}
+
 export interface IUser extends Document {
   email: string;
   password: string;
@@ -14,6 +36,10 @@ export interface IUser extends Document {
   bmi?: number;
   bmr?: number;
   maintenanceCalories?: number;
+  workoutPlan?: WorkoutPlan; // Legacy field for backward compatibility
+  workoutPlans?: mongoose.Types.ObjectId[]; // NEW: Array of WorkoutPlan references
+  activeWorkoutPlanId?: mongoose.Types.ObjectId; // NEW: Currently active plan
+  customExercises?: mongoose.Types.ObjectId[]; // NEW: User's custom exercises
   createdAt: Date;
   updatedAt: Date;
 }
@@ -79,6 +105,38 @@ const UserSchema: Schema = new Schema(
     maintenanceCalories: {
       type: Number,
     },
+    workoutPlan: {
+      type: {
+        weeklySchedule: [{
+          day: String,
+          focus: String,
+          duration: String,
+          exercises: [{
+            name: String,
+            sets: Number,
+            reps: String,
+            rest: String,
+            notes: String,
+          }],
+        }],
+        generalNotes: String,
+        nutritionTips: String,
+        createdAt: Date,
+      },
+      required: false,
+    },
+    workoutPlans: [{
+      type: Schema.Types.ObjectId,
+      ref: 'WorkoutPlan',
+    }],
+    activeWorkoutPlanId: {
+      type: Schema.Types.ObjectId,
+      ref: 'WorkoutPlan',
+    },
+    customExercises: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Exercise',
+    }],
   },
   {
     timestamps: true,

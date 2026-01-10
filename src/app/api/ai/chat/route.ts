@@ -85,10 +85,23 @@ Keep responses concise, practical, and actionable. Use clear language that begin
     }
 
     if (error?.status === 429) {
+      // Check if it's insufficient quota or rate limit
+      const errorCode = error?.code || error?.error?.code;
+
+      if (errorCode === 'insufficient_quota') {
+        return NextResponse.json(
+          {
+            error: 'Insufficient quota',
+            response: '⚠️ OpenAI API quota exceeded. Please check your billing and add credits at https://platform.openai.com/account/billing',
+          },
+          { status: 503 }
+        );
+      }
+
       return NextResponse.json(
         {
           error: 'Rate limit exceeded',
-          response: 'Too many requests. Please try again in a moment.',
+          response: 'Too many requests. Please wait a moment and try again.',
         },
         { status: 429 }
       );

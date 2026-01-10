@@ -231,7 +231,7 @@ export default function WaterCalculatorPage() {
 
         {/* Additional Information */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          <Card className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
+          <Card className="animate-slide-up">
             <CardHeader>
               <CardTitle className="text-lg">When to Drink More</CardTitle>
             </CardHeader>
@@ -257,7 +257,7 @@ export default function WaterCalculatorPage() {
             </CardContent>
           </Card>
 
-          <Card className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <Card className="animate-slide-up">
             <CardHeader>
               <CardTitle className="text-lg">Signs of Dehydration</CardTitle>
             </CardHeader>
@@ -289,7 +289,7 @@ export default function WaterCalculatorPage() {
         </div>
 
         {/* Important Note */}
-        <Card className="mt-6 animate-slide-up border-primary/30 bg-primary/5" style={{ animationDelay: '0.3s' }}>
+        <Card className="mt-6 animate-slide-up border-primary/30 bg-primary/5">
           <CardContent className="pt-6">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center flex-shrink-0">

@@ -333,7 +333,7 @@ export default function MacroCalculatorPage() {
         </div>
 
         {/* Goal-Specific Recommendations */}
-        <Card className="mt-6 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+        <Card className="mt-6 animate-slide-up">
           <CardHeader>
             <CardTitle>Macro Ratios by Goal</CardTitle>
             <CardDescription>Common macronutrient distributions for different fitness goals</CardDescription>
