@@ -17,7 +17,8 @@ import {
   Calculator,
   MessageSquare,
   User,
-  LogOut
+  LogOut,
+  Camera
 } from 'lucide-react';
 
 export function Navbar() {
@@ -29,12 +30,14 @@ export function Navbar() {
   const navigation = user
     ? [
         { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+        { name: 'Live Workout', href: '/live-workout', icon: Camera },
         { name: 'AI Coach', href: '/ai-coach', icon: MessageSquare },
         { name: 'Calculators', href: '/calculators', icon: Calculator },
         { name: 'Profile', href: '/profile', icon: User },
       ]
     : [
         { name: 'Home', href: '/', icon: Home },
+        { name: 'Live Workout', href: '/live-workout', icon: Camera },
       ];
 
   const isActive = (path: string) => pathname === path;
