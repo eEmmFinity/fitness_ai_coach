@@ -15,6 +15,10 @@ export class SquatDetector {
   private startTime: number = Date.now();
   private config: ExerciseDetectorConfig;
 
+  // Tempo tracking (Week 3 enhancement)
+  private lastRepTimestamp: number = Date.now();
+  private repDurations: number[] = []; // Track last 5 rep durations
+
   // Biomechanical thresholds
   private readonly SQUAT_DOWN_THRESHOLD = 100; // Knee angle for squat depth
   private readonly SQUAT_UP_THRESHOLD = 160; // Knee angle for standing
@@ -22,6 +26,10 @@ export class SquatDetector {
   private readonly FORM_KNEE_ANGLE_MAX = 110; // Max knee angle at bottom
   private readonly FORM_HIP_ANGLE_MIN = 60; // Min hip angle
   private readonly VISIBILITY_THRESHOLD = 0.6;
+
+  // Tempo thresholds (Week 3)
+  private readonly TEMPO_MIN_SECONDS = 2; // Minimum 2 seconds per rep
+  private readonly TEMPO_MAX_SECONDS = 4; // Maximum 4 seconds per rep
 
   constructor(config: Partial<ExerciseDetectorConfig> = {}) {
     this.config = {
@@ -106,6 +114,10 @@ export class SquatDetector {
         if (kneeAngle > this.SQUAT_UP_THRESHOLD) {
           this.state = ExerciseState.UP;
           this.repCount++; // Rep completed!
+
+          // Track tempo (Week 3)
+          this.trackRepTempo();
+
           this.addFeedback('good', `Rep ${this.repCount} completed!`);
         }
         break;
@@ -136,16 +148,25 @@ export class SquatDetector {
     // Check squat depth
     if (this.state === ExerciseState.DOWN) {
       if (kneeAngle > this.FORM_KNEE_ANGLE_MAX) {
-        this.addFeedback('warning', 'Go deeper! Aim for 90° knee angle');
+        this.addFeedback('warning', 'Go deeper! Aim for 90° knee angle', [
+          POSE_LANDMARKS.LEFT_KNEE,
+          POSE_LANDMARKS.RIGHT_KNEE,
+        ]);
         formPenalty += 10;
       } else if (kneeAngle < this.FORM_KNEE_ANGLE_MIN) {
-        this.addFeedback('warning', 'Don\'t go too deep, risk of injury');
+        this.addFeedback('warning', 'Don\'t go too deep, risk of injury', [
+          POSE_LANDMARKS.LEFT_KNEE,
+          POSE_LANDMARKS.RIGHT_KNEE,
+        ]);
         formPenalty += 5;
       }
 
       // Check hip hinge
       if (hipAngle > 110) {
-        this.addFeedback('warning', 'Bend at the hips more, push butt back');
+        this.addFeedback('warning', 'Bend at the hips more, push butt back', [
+          POSE_LANDMARKS.LEFT_HIP,
+          POSE_LANDMARKS.RIGHT_HIP,
+        ]);
         formPenalty += 10;
       }
 
@@ -153,13 +174,53 @@ export class SquatDetector {
       const kneeDistance = Math.abs(leftKnee.x - rightKnee.x);
       const ankleDistance = Math.abs(leftAnkle.x - rightAnkle.x);
       if (kneeDistance < ankleDistance * 0.8) {
-        this.addFeedback('error', 'Knees caving in! Push knees outward');
+        this.addFeedback('error', 'Knees caving in! Push knees outward', [
+          POSE_LANDMARKS.LEFT_KNEE,
+          POSE_LANDMARKS.RIGHT_KNEE,
+        ]);
         formPenalty += 15;
       }
     }
 
     // Update form score (exponential decay to recent performance)
     this.formScore = Math.max(0, Math.min(100, 100 - formPenalty));
+  }
+
+  /**
+   * Track rep tempo and provide feedback (Week 3)
+   */
+  private trackRepTempo(): void {
+    const now = Date.now();
+    const repDuration = (now - this.lastRepTimestamp) / 1000; // seconds
+
+    // Skip first rep (no baseline)
+    if (this.repCount > 1) {
+      this.repDurations.push(repDuration);
+
+      // Keep only last 5 durations
+      if (this.repDurations.length > 5) {
+        this.repDurations.shift();
+      }
+
+      // Provide tempo feedback
+      if (repDuration < this.TEMPO_MIN_SECONDS) {
+        this.addFeedback('warning', 'Slow down! You\'re going too fast - control the movement');
+      } else if (repDuration > this.TEMPO_MAX_SECONDS) {
+        this.addFeedback('warning', 'Speed up a bit - maintain a steady tempo');
+      }
+    }
+
+    this.lastRepTimestamp = now;
+  }
+
+  /**
+   * Get average tempo over recent reps
+   */
+  private getAverageTempo(): number {
+    if (this.repDurations.length === 0) return 0;
+
+    const sum = this.repDurations.reduce((a, b) => a + b, 0);
+    return sum / this.repDurations.length;
   }
 
   /**
@@ -234,5 +295,7 @@ export class SquatDetector {
     this.formScore = 100;
     this.feedbackLog = [];
     this.startTime = Date.now();
+    this.lastRepTimestamp = Date.now();
+    this.repDurations = [];
   }
 }

@@ -111,7 +111,7 @@ export default function LiveWorkoutSession() {
     setFeedback([]);
   };
 
-  // Draw pose skeleton on canvas
+  // Draw pose skeleton on canvas with highlighted joints (Week 3 enhancement)
   const drawPoseSkeleton = (landmarks: any[]) => {
     const canvas = canvasRef.current;
     const video = videoRef.current;
@@ -127,14 +127,40 @@ export default function LiveWorkoutSession() {
     // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Draw landmarks
-    ctx.fillStyle = '#10b981'; // green
-    landmarks.forEach((landmark) => {
+    // Get affected joints from recent feedback
+    const affectedJoints = new Set<number>();
+    feedback.forEach((f) => {
+      if (f.affectedJoints) {
+        f.affectedJoints.forEach((joint) => affectedJoints.add(joint));
+      }
+    });
+
+    // Draw landmarks with conditional highlighting
+    landmarks.forEach((landmark, index) => {
       const x = landmark.x * canvas.width;
       const y = landmark.y * canvas.height;
-      ctx.beginPath();
-      ctx.arc(x, y, 5, 0, 2 * Math.PI);
-      ctx.fill();
+
+      // Highlight affected joints in red/orange
+      if (affectedJoints.has(index)) {
+        ctx.fillStyle = '#ef4444'; // red for problem joints
+        ctx.beginPath();
+        ctx.arc(x, y, 8, 0, 2 * Math.PI); // Larger circle
+        ctx.fill();
+
+        // Add glow effect
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#ef4444';
+        ctx.beginPath();
+        ctx.arc(x, y, 8, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      } else {
+        // Normal joints in green
+        ctx.fillStyle = '#10b981'; // green
+        ctx.beginPath();
+        ctx.arc(x, y, 5, 0, 2 * Math.PI);
+        ctx.fill();
+      }
     });
 
     // Draw connections (simplified - just main body)

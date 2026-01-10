@@ -176,32 +176,50 @@ export class PlankDetector {
     if (this.state === ExerciseState.HOLD || this.state === ExerciseState.READY) {
       // Check body alignment
       if (bodyAngle < this.PLANK_BODY_ALIGNMENT_MIN) {
-        this.addFeedback('error', 'Hips sagging! Engage your core');
+        this.addFeedback('error', 'Hips sagging! Engage your core', [
+          POSE_LANDMARKS.LEFT_HIP,
+          POSE_LANDMARKS.RIGHT_HIP,
+        ]);
         formPenalty += 25;
       } else if (bodyAngle > this.PLANK_BODY_ALIGNMENT_MAX) {
-        this.addFeedback('warning', 'Hips too high! Lower slightly');
+        this.addFeedback('warning', 'Hips too high! Lower slightly', [
+          POSE_LANDMARKS.LEFT_HIP,
+          POSE_LANDMARKS.RIGHT_HIP,
+        ]);
         formPenalty += 15;
       }
 
       // Check elbow position
       if (elbowAngle < this.PLANK_ELBOW_ANGLE_MIN) {
-        this.addFeedback('warning', 'Elbows too bent, extend forearms');
+        this.addFeedback('warning', 'Elbows too bent, extend forearms', [
+          POSE_LANDMARKS.LEFT_ELBOW,
+          POSE_LANDMARKS.RIGHT_ELBOW,
+        ]);
         formPenalty += 10;
       } else if (elbowAngle > this.PLANK_ELBOW_ANGLE_MAX) {
-        this.addFeedback('warning', 'Elbows too straight, bend slightly');
+        this.addFeedback('warning', 'Elbows too straight, bend slightly', [
+          POSE_LANDMARKS.LEFT_ELBOW,
+          POSE_LANDMARKS.RIGHT_ELBOW,
+        ]);
         formPenalty += 10;
       }
 
       // Check knee extension
       if (kneeAngle < 160) {
-        this.addFeedback('error', 'Knees bent! Extend your legs fully');
+        this.addFeedback('error', 'Knees bent! Extend your legs fully', [
+          POSE_LANDMARKS.LEFT_KNEE,
+          POSE_LANDMARKS.RIGHT_KNEE,
+        ]);
         formPenalty += 20;
       }
 
       // Check hip alignment (shouldn't twist)
       const hipYDiff = Math.abs(leftHip.y - rightHip.y);
       if (hipYDiff > 0.05) {
-        this.addFeedback('warning', 'Hips twisting! Keep them level');
+        this.addFeedback('warning', 'Hips twisting! Keep them level', [
+          POSE_LANDMARKS.LEFT_HIP,
+          POSE_LANDMARKS.RIGHT_HIP,
+        ]);
         formPenalty += 10;
       }
     }
