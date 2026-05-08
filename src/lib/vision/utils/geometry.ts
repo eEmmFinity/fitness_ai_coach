@@ -1,85 +1,56 @@
-/**
- * Geometry Utilities for Biomechanical Calculations
- * Handles angle calculations and landmark-based measurements
- */
-
 import type { PoseLandmark } from '../types';
 
 /**
- * Calculate angle between three points (in degrees)
- * @param a - First point (e.g., shoulder)
- * @param b - Middle point (e.g., elbow) - vertex of angle
- * @param c - Third point (e.g., wrist)
- * @returns Angle in degrees (0-180)
+ * Calculate angle between three points using 3D coordinates (x, y, z).
+ * Using world landmarks (metric space) gives accurate angles regardless
+ * of camera orientation — critical for side-profile exercises like push-ups.
+ * Falls back to 2D (x, y) when z is unavailable.
  */
 export function calculateAngle(
   a: PoseLandmark,
   b: PoseLandmark,
   c: PoseLandmark
 ): number {
-  const radians =
-    Math.atan2(c.y - b.y, c.x - b.x) - Math.atan2(a.y - b.y, a.x - b.x);
-  let angle = Math.abs((radians * 180.0) / Math.PI);
+  // Vectors from vertex b
+  const ba = { x: a.x - b.x, y: a.y - b.y, z: (a.z ?? 0) - (b.z ?? 0) };
+  const bc = { x: c.x - b.x, y: c.y - b.y, z: (c.z ?? 0) - (b.z ?? 0) };
 
-  if (angle > 180.0) {
-    angle = 360 - angle;
-  }
+  const dot = ba.x * bc.x + ba.y * bc.y + ba.z * bc.z;
+  const magBA = Math.sqrt(ba.x ** 2 + ba.y ** 2 + ba.z ** 2);
+  const magBC = Math.sqrt(bc.x ** 2 + bc.y ** 2 + bc.z ** 2);
 
-  return angle;
+  if (magBA === 0 || magBC === 0) return 0;
+
+  const cosAngle = Math.max(-1, Math.min(1, dot / (magBA * magBC)));
+  return (Math.acos(cosAngle) * 180) / Math.PI;
 }
 
-/**
- * Calculate Euclidean distance between two landmarks
- * @param a - First landmark
- * @param b - Second landmark
- * @returns Distance (normalized 0-1 coordinate space)
- */
 export function calculateDistance(a: PoseLandmark, b: PoseLandmark): number {
   return Math.sqrt(
-    Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2) + Math.pow(a.z - b.z, 2)
+    (a.x - b.x) ** 2 + (a.y - b.y) ** 2 + (a.z - b.z) ** 2
   );
 }
 
-/**
- * Check if landmark is visible (confidence threshold)
- * @param landmark - Pose landmark to check
- * @param threshold - Minimum visibility score (default 0.5)
- * @returns True if landmark is sufficiently visible
- */
 export function isLandmarkVisible(
   landmark: PoseLandmark,
-  threshold: number = 0.5
+  threshold = 0.5
 ): boolean {
   return (landmark.visibility ?? 0) >= threshold;
 }
 
-/**
- * Check if all required landmarks are visible
- * @param landmarks - Array of landmarks to check
- * @param threshold - Minimum visibility score
- * @returns True if all landmarks meet threshold
- */
 export function areLandmarksVisible(
   landmarks: PoseLandmark[],
-  threshold: number = 0.5
+  threshold = 0.5
 ): boolean {
   return landmarks.every((lm) => isLandmarkVisible(lm, threshold));
 }
 
-/**
- * Calculate vertical alignment score (0-100)
- * Used for checking posture alignment (e.g., knee over ankle)
- * @param upper - Upper landmark
- * @param lower - Lower landmark
- * @returns Alignment score (100 = perfectly aligned, 0 = max deviation)
- */
 export function calculateVerticalAlignment(
   upper: PoseLandmark,
   lower: PoseLandmark
 ): number {
   const horizontalDeviation = Math.abs(upper.x - lower.x);
-  const score = Math.max(0, 100 - horizontalDeviation * 200); // Scale deviation
-  return Math.round(score);
+  return Math.round(Math.max(0, 100 - horizontalDeviation * 200));
 }
 
 /**

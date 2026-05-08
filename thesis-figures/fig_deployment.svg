@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500">
+  <style>
+    text { font-family: 'Helvetica', 'Arial', sans-serif; fill: #101828; }
+    .title { font-size: 20px; font-weight: 700; }
+    .label { font-size: 14px; }
+    .small { font-size: 12px; fill: #475467; }
+    .mono { font-family: 'Menlo', 'Consolas', monospace; font-size: 12px; }
+    .arrow { stroke: #475467; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .arrow-thick { stroke: #5b4bff; stroke-width: 2; fill: none; marker-end: url(#arrowP); }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+    .box-primary { fill: #eceaff; stroke: #5b4bff; stroke-width: 1.5; }
+    .box-accent { fill: #dcf6f0; stroke: #06b6a3; stroke-width: 1.5; }
+    .actor-circle { fill: #ffffff; stroke: #101828; stroke-width: 2; }
+    .usecase { fill: #ffffff; stroke: #5b4bff; stroke-width: 1.5; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475467"/>
+    </marker>
+    <marker id="arrowP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b4bff"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="20" y="28" class="title">Deployment Diagram</text>
+<g>
+    <rect x="40" y="80" width="220" height="200" rx="8" class="box-primary"/>
+    <text x="150" y="185" text-anchor="middle" class="label"></text>
+  </g>
+<text x="60" y="105" class="label" font-weight="700">User Device</text>
+<g>
+    <rect x="70" y="130" width="160" height="50" rx="8" class="box"/>
+    <text x="150" y="152" text-anchor="middle" class="label">Browser</text><text x="150" y="168" text-anchor="middle" class="label">(Chrome / Safari)</text>
+  </g>
+<g>
+    <rect x="70" y="200" width="160" height="60" rx="8" class="box"/>
+    <text x="150" y="227" text-anchor="middle" class="label">WebCam</text><text x="150" y="243" text-anchor="middle" class="label">+ MediaPipe WASM</text>
+  </g>
+<g>
+    <rect x="310" y="80" width="280" height="200" rx="8" class="box-accent"/>
+    <text x="450" y="185" text-anchor="middle" class="label"></text>
+  </g>
+<text x="330" y="105" class="label" font-weight="700">Application Host (Vercel)</text>
+<g>
+    <rect x="340" y="130" width="220" height="50" rx="8" class="box"/>
+    <text x="450" y="152" text-anchor="middle" class="label">Next.js Edge Middleware</text><text x="450" y="168" text-anchor="middle" class="label">(role-aware routing)</text>
+  </g>
+<g>
+    <rect x="340" y="200" width="220" height="60" rx="8" class="box"/>
+    <text x="450" y="227" text-anchor="middle" class="label">Next.js API Routes</text><text x="450" y="243" text-anchor="middle" class="label">(Node runtime)</text>
+  </g>
+<g>
+    <rect x="640" y="80" width="320" height="200" rx="8" class="box"/>
+    <text x="800" y="185" text-anchor="middle" class="label"></text>
+  </g>
+<text x="660" y="105" class="label" font-weight="700">External Services</text>
+<g>
+    <rect x="660" y="130" width="280" height="40" rx="8" class="box"/>
+    <text x="800" y="155" text-anchor="middle" class="label">MongoDB Atlas (M10)</text>
+  </g>
+<g>
+    <rect x="660" y="180" width="280" height="40" rx="8" class="box"/>
+    <text x="800" y="205" text-anchor="middle" class="label">Stripe (Billing + Webhook)</text>
+  </g>
+<g>
+    <rect x="660" y="230" width="280" height="40" rx="8" class="box"/>
+    <text x="800" y="255" text-anchor="middle" class="label">OpenAI API (Pro tier only)</text>
+  </g>
+<line x1="260" y1="180" x2="310" y2="180" class="arrow"/><rect x="259" y="169" width="52" height="18" fill="#ffffff" />
+          <text x="285" y="183" text-anchor="middle" class="small">HTTPS</text>
+<line x1="590" y1="180" x2="640" y2="180" class="arrow"/><rect x="581" y="169" width="68" height="18" fill="#ffffff" />
+          <text x="615" y="183" text-anchor="middle" class="small">TCP/TLS</text>
+<line x1="640" y1="230" x2="590" y2="230" class="arrow"/><rect x="581" y="219" width="68" height="18" fill="#ffffff" />
+          <text x="615" y="233" text-anchor="middle" class="small">webhook</text>
+<g>
+    <rect x="40" y="320" width="920" height="130" rx="8" class="box"/>
+    <text x="500" y="390" text-anchor="middle" class="label"></text>
+  </g>
+<text x="60" y="345" class="label" font-weight="700">Operational Tooling</text>
+<g>
+    <rect x="70" y="370" width="200" height="60" rx="8" class="box"/>
+    <text x="170" y="397" text-anchor="middle" class="label">GitHub</text><text x="170" y="413" text-anchor="middle" class="label">(source + CI)</text>
+  </g>
+<g>
+    <rect x="290" y="370" width="200" height="60" rx="8" class="box"/>
+    <text x="390" y="397" text-anchor="middle" class="label">OpenAPI spec</text><text x="390" y="413" text-anchor="middle" class="label">(/api/openapi)</text>
+  </g>
+<g>
+    <rect x="510" y="370" width="200" height="60" rx="8" class="box"/>
+    <text x="610" y="397" text-anchor="middle" class="label">Structured logs</text><text x="610" y="413" text-anchor="middle" class="label">(JSON in prod)</text>
+  </g>
+<g>
+    <rect x="730" y="370" width="210" height="60" rx="8" class="box"/>
+    <text x="835" y="397" text-anchor="middle" class="label">Mongo TTL collections</text><text x="835" y="413" text-anchor="middle" class="label">(rate limits, tokens)</text>
+  </g>
+</svg>

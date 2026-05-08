@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="500" viewBox="0 0 1100 500">
+  <style>
+    text { font-family: 'Helvetica', 'Arial', sans-serif; fill: #101828; }
+    .title { font-size: 20px; font-weight: 700; }
+    .label { font-size: 14px; }
+    .small { font-size: 12px; fill: #475467; }
+    .mono { font-family: 'Menlo', 'Consolas', monospace; font-size: 12px; }
+    .arrow { stroke: #475467; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .arrow-thick { stroke: #5b4bff; stroke-width: 2; fill: none; marker-end: url(#arrowP); }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+    .box-primary { fill: #eceaff; stroke: #5b4bff; stroke-width: 1.5; }
+    .box-accent { fill: #dcf6f0; stroke: #06b6a3; stroke-width: 1.5; }
+    .actor-circle { fill: #ffffff; stroke: #101828; stroke-width: 2; }
+    .usecase { fill: #ffffff; stroke: #5b4bff; stroke-width: 1.5; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475467"/>
+    </marker>
+    <marker id="arrowP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b4bff"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="20" y="28" class="title">DFD Level-2 (Live Workout Pipeline)</text>
+<g>
+    <rect x="40" y="200" width="120" height="70" rx="8" class="box"/>
+    <text x="100" y="232" text-anchor="middle" class="label">Trainee</text><text x="100" y="248" text-anchor="middle" class="label">(Camera)</text>
+  </g>
+<g>
+    <ellipse cx="265" cy="235" rx="65" ry="35" fill="#eceaff" stroke="#5b4bff" stroke-width="1.5"/>
+    <text x="265" y="233" text-anchor="middle" class="label">2.1</text><text x="265" y="247" text-anchor="middle" class="label">Capture</text>
+  </g>
+<g>
+    <ellipse cx="435" cy="235" rx="65" ry="35" fill="#eceaff" stroke="#5b4bff" stroke-width="1.5"/>
+    <text x="435" y="226" text-anchor="middle" class="label">2.2</text><text x="435" y="240" text-anchor="middle" class="label">Pose</text><text x="435" y="254" text-anchor="middle" class="label">Detection</text>
+  </g>
+<g>
+    <ellipse cx="605" cy="235" rx="65" ry="35" fill="#eceaff" stroke="#5b4bff" stroke-width="1.5"/>
+    <text x="605" y="226" text-anchor="middle" class="label">2.3</text><text x="605" y="240" text-anchor="middle" class="label">Exercise</text><text x="605" y="254" text-anchor="middle" class="label">Classify</text>
+  </g>
+<g>
+    <ellipse cx="775" cy="235" rx="65" ry="35" fill="#eceaff" stroke="#5b4bff" stroke-width="1.5"/>
+    <text x="775" y="233" text-anchor="middle" class="label">2.4</text><text x="775" y="247" text-anchor="middle" class="label">State Machine</text>
+  </g>
+<g>
+    <ellipse cx="605" cy="385" rx="65" ry="35" fill="#eceaff" stroke="#5b4bff" stroke-width="1.5"/>
+    <text x="605" y="376" text-anchor="middle" class="label">2.5</text><text x="605" y="390" text-anchor="middle" class="label">Form</text><text x="605" y="404" text-anchor="middle" class="label">Analysis</text>
+  </g>
+<g>
+    <ellipse cx="775" cy="385" rx="65" ry="35" fill="#eceaff" stroke="#5b4bff" stroke-width="1.5"/>
+    <text x="775" y="376" text-anchor="middle" class="label">2.6</text><text x="775" y="390" text-anchor="middle" class="label">Metric</text><text x="775" y="404" text-anchor="middle" class="label">Persist</text>
+  </g>
+<g>
+    <line x1="880" y1="360" x2="1060" y2="360" stroke="#101828" stroke-width="1.5"/>
+    <line x1="880" y1="410" x2="1060" y2="410" stroke="#101828" stroke-width="1.5"/>
+    <text x="970" y="390" text-anchor="middle" class="label">D2: Sessions</text>
+  </g>
+<line x1="160" y1="235" x2="200" y2="235" class="arrow"/><rect x="150" y="224" width="60" height="18" fill="#ffffff" />
+          <text x="180" y="238" text-anchor="middle" class="small">frames</text>
+<line x1="330" y1="235" x2="370" y2="235" class="arrow"/><rect x="332" y="224" width="36" height="18" fill="#ffffff" />
+          <text x="350" y="238" text-anchor="middle" class="small">rgb</text>
+<line x1="500" y1="235" x2="540" y2="235" class="arrow"/><rect x="478" y="224" width="84" height="18" fill="#ffffff" />
+          <text x="520" y="238" text-anchor="middle" class="small">landmarks</text>
+<line x1="670" y1="235" x2="710" y2="235" class="arrow"/><rect x="668" y="224" width="44" height="18" fill="#ffffff" />
+          <text x="690" y="238" text-anchor="middle" class="small">enum</text>
+<line x1="605" y1="270" x2="605" y2="350" class="arrow"/><rect x="583" y="299" width="44" height="18" fill="#ffffff" />
+          <text x="605" y="313" text-anchor="middle" class="small">reps</text>
+<line x1="670" y1="385" x2="710" y2="385" class="arrow"/><rect x="664" y="374" width="52" height="18" fill="#ffffff" />
+          <text x="690" y="388" text-anchor="middle" class="small">score</text>
+<line x1="840" y1="385" x2="880" y2="385" class="arrow"/><rect x="838" y="374" width="44" height="18" fill="#ffffff" />
+          <text x="860" y="388" text-anchor="middle" class="small">POST</text>
+<text x="20" y="470" class="small">All boxed processes execute in the browser. Only process 2.6 makes a network call.</text>
+</svg>

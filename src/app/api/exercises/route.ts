@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import Exercise from '@/models/Exercise';
+import User from '@/models/User';
 import { verifyToken } from '@/lib/auth';
 import { seedExercises } from '@/lib/exercises/seedExercises';
+
+function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
 
 // GET /api/exercises - Get all exercises with filtering, search, and pagination
 export async function GET(request: NextRequest) {
@@ -28,14 +33,14 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '50');
 
     // Build filter query
-    const filter: any = {};
+    const filter: Record<string, unknown> = {};
 
-    // Text search on name and description
     if (search) {
+      const safeSearch = escapeRegex(search);
       filter.$or = [
-        { name: { $regex: search, $options: 'i' } },
-        { description: { $regex: search, $options: 'i' } },
-        { muscleGroups: { $in: [new RegExp(search, 'i')] } }
+        { name: { $regex: safeSearch, $options: 'i' } },
+        { description: { $regex: safeSearch, $options: 'i' } },
+        { muscleGroups: { $in: [new RegExp(safeSearch, 'i')] } },
       ];
     }
 
@@ -69,11 +74,12 @@ export async function GET(request: NextRequest) {
       const decoded = verifyToken(token);
       if (decoded) {
         // Include both system and user's custom exercises
-        filter.$or = filter.$or || [];
-        filter.$or.push(
+        const existing = (filter.$or as unknown[]) || [];
+        filter.$or = [
+          ...existing,
           { isCustom: false },
-          { isCustom: true, createdBy: decoded.userId }
-        );
+          { isCustom: true, createdBy: decoded.userId },
+        ];
       } else {
         // Not authenticated, only show system exercises
         filter.isCustom = false;
@@ -183,7 +189,6 @@ export async function POST(request: NextRequest) {
     await exercise.save();
 
     // Add to user's custom exercises
-    const User = (await import('@/models/User')).default;
     await User.findByIdAndUpdate(
       decoded.userId,
       { $addToSet: { customExercises: exercise._id } }

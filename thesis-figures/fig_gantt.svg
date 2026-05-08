@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1140" height="480" viewBox="0 0 1140 480">
+  <style>
+    text { font-family: 'Helvetica', 'Arial', sans-serif; fill: #101828; }
+    .title { font-size: 20px; font-weight: 700; }
+    .label { font-size: 14px; }
+    .small { font-size: 12px; fill: #475467; }
+    .mono { font-family: 'Menlo', 'Consolas', monospace; font-size: 12px; }
+    .arrow { stroke: #475467; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .arrow-thick { stroke: #5b4bff; stroke-width: 2; fill: none; marker-end: url(#arrowP); }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+    .box-primary { fill: #eceaff; stroke: #5b4bff; stroke-width: 1.5; }
+    .box-accent { fill: #dcf6f0; stroke: #06b6a3; stroke-width: 1.5; }
+    .actor-circle { fill: #ffffff; stroke: #101828; stroke-width: 2; }
+    .usecase { fill: #ffffff; stroke: #5b4bff; stroke-width: 1.5; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475467"/>
+    </marker>
+    <marker id="arrowP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b4bff"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="20" y="28" class="title">Project Plan — Gantt Chart (48 weeks)</text>
+<line x1="200" y1="72" x2="200" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="200" y="66" text-anchor="middle" class="small">W0</text>
+<line x1="273.3333333333333" y1="72" x2="273.3333333333333" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="273.3333333333333" y="66" text-anchor="middle" class="small">W4</text>
+<line x1="346.66666666666663" y1="72" x2="346.66666666666663" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="346.66666666666663" y="66" text-anchor="middle" class="small">W8</text>
+<line x1="420" y1="72" x2="420" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="420" y="66" text-anchor="middle" class="small">W12</text>
+<line x1="493.3333333333333" y1="72" x2="493.3333333333333" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="493.3333333333333" y="66" text-anchor="middle" class="small">W16</text>
+<line x1="566.6666666666666" y1="72" x2="566.6666666666666" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="566.6666666666666" y="66" text-anchor="middle" class="small">W20</text>
+<line x1="640" y1="72" x2="640" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="640" y="66" text-anchor="middle" class="small">W24</text>
+<line x1="713.3333333333333" y1="72" x2="713.3333333333333" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="713.3333333333333" y="66" text-anchor="middle" class="small">W28</text>
+<line x1="786.6666666666666" y1="72" x2="786.6666666666666" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="786.6666666666666" y="66" text-anchor="middle" class="small">W32</text>
+<line x1="860" y1="72" x2="860" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="860" y="66" text-anchor="middle" class="small">W36</text>
+<line x1="933.3333333333333" y1="72" x2="933.3333333333333" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="933.3333333333333" y="66" text-anchor="middle" class="small">W40</text>
+<line x1="1006.6666666666666" y1="72" x2="1006.6666666666666" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="1006.6666666666666" y="66" text-anchor="middle" class="small">W44</text>
+<line x1="1080" y1="72" x2="1080" y2="404" stroke="#cbd5e1" stroke-width="0.5"/>
+                <text x="1080" y="66" text-anchor="middle" class="small">W48</text>
+<text x="190" y="98" text-anchor="end" class="small">Initial Phase</text><g>
+    <rect x="218.33333333333334" y="84" width="201.66666666666666" height="22" fill="#475467" rx="3" opacity="0.85"/>
+    <text x="226.33333333333334" y="100" class="small" fill="white" font-weight="700">W1–11</text>
+  </g>
+<text x="190" y="134" text-anchor="end" class="small">Requirement Analysis</text><g>
+    <rect x="420" y="120" width="73.33333333333333" height="22" fill="#5b4bff" rx="3" opacity="0.85"/>
+    <text x="428" y="136" class="small" fill="white" font-weight="700">W12–15</text>
+  </g>
+<text x="190" y="170" text-anchor="end" class="small">System Design</text><g>
+    <rect x="493.3333333333333" y="156" width="91.66666666666666" height="22" fill="#5b4bff" rx="3" opacity="0.85"/>
+    <text x="501.3333333333333" y="172" class="small" fill="white" font-weight="700">W16–20</text>
+  </g>
+<text x="190" y="206" text-anchor="end" class="small">Front-end Skeleton</text><g>
+    <rect x="585" y="192" width="146.66666666666666" height="22" fill="#06b6a3" rx="3" opacity="0.85"/>
+    <text x="593" y="208" class="small" fill="white" font-weight="700">W21–28</text>
+  </g>
+<text x="190" y="242" text-anchor="end" class="small">Back-end + CV Pipeline</text><g>
+    <rect x="731.6666666666666" y="228" width="146.66666666666666" height="22" fill="#06b6a3" rx="3" opacity="0.85"/>
+    <text x="739.6666666666666" y="244" class="small" fill="white" font-weight="700">W29–36</text>
+  </g>
+<text x="190" y="278" text-anchor="end" class="small">Coach + Admin Surfaces</text><g>
+    <rect x="878.3333333333333" y="264" width="73.33333333333333" height="22" fill="#f59e0b" rx="3" opacity="0.85"/>
+    <text x="886.3333333333333" y="280" class="small" fill="white" font-weight="700">W37–40</text>
+  </g>
+<text x="190" y="314" text-anchor="end" class="small">Messaging, Billing, Polish</text><g>
+    <rect x="951.6666666666666" y="300" width="73.33333333333333" height="22" fill="#f59e0b" rx="3" opacity="0.85"/>
+    <text x="959.6666666666666" y="316" class="small" fill="white" font-weight="700">W41–44</text>
+  </g>
+<text x="190" y="350" text-anchor="end" class="small">Deployment + Hardening</text><g>
+    <rect x="1025" y="336" width="36.666666666666664" height="22" fill="#ef4444" rx="3" opacity="0.85"/>
+    <text x="1033" y="352" class="small" fill="white" font-weight="700">W45–46</text>
+  </g>
+<text x="190" y="386" text-anchor="end" class="small">Final Report + Demo</text><g>
+    <rect x="1061.6666666666665" y="372" width="36.666666666666664" height="22" fill="#ef4444" rx="3" opacity="0.85"/>
+    <text x="1069.6666666666665" y="388" class="small" fill="white" font-weight="700">W47–48</text>
+  </g>
+</svg>

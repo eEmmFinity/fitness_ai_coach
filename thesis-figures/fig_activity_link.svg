@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900">
+  <style>
+    text { font-family: 'Helvetica', 'Arial', sans-serif; fill: #101828; }
+    .title { font-size: 20px; font-weight: 700; }
+    .label { font-size: 14px; }
+    .small { font-size: 12px; fill: #475467; }
+    .mono { font-family: 'Menlo', 'Consolas', monospace; font-size: 12px; }
+    .arrow { stroke: #475467; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .arrow-thick { stroke: #5b4bff; stroke-width: 2; fill: none; marker-end: url(#arrowP); }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+    .box-primary { fill: #eceaff; stroke: #5b4bff; stroke-width: 1.5; }
+    .box-accent { fill: #dcf6f0; stroke: #06b6a3; stroke-width: 1.5; }
+    .actor-circle { fill: #ffffff; stroke: #101828; stroke-width: 2; }
+    .usecase { fill: #ffffff; stroke: #5b4bff; stroke-width: 1.5; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475467"/>
+    </marker>
+    <marker id="arrowP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b4bff"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="20" y="28" class="title">Activity: Coach-Trainee Link Lifecycle</text>
+<g><circle cx="450" cy="80" r="14" fill="#101828"/><text x="450" y="115" text-anchor="middle" class="label">Start</text></g>
+<g><rect x="310" y="138" width="280" height="44" rx="22" class="box-accent"/><text x="450" y="165" text-anchor="middle" class="label">Trainee browses /coaches</text></g>
+<line x1="450" y1="95" x2="450" y2="138" class="arrow"/>
+<g><rect x="310" y="208" width="280" height="44" rx="22" class="box-accent"/><text x="450" y="235" text-anchor="middle" class="label">Trainee sends link request</text></g>
+<line x1="450" y1="182" x2="450" y2="208" class="arrow"/>
+<g>
+    <polygon points="450,290 520,320 450,350 380,320" fill="#ffffff" stroke="#f59e0b" stroke-width="2"/>
+    <text x="450" y="318" text-anchor="middle" class="label">Coach</text><text x="450" y="332" text-anchor="middle" class="label">decides</text>
+  </g>
+<line x1="450" y1="252" x2="450" y2="290" class="arrow"/>
+<g><rect x="170" y="388" width="220" height="44" rx="22" class="box-accent"/><text x="280" y="415" text-anchor="middle" class="label">Coach declines</text></g>
+<g><rect x="510" y="388" width="220" height="44" rx="22" class="box-accent"/><text x="620" y="415" text-anchor="middle" class="label">Coach accepts</text></g>
+<line x1="390" y1="320" x2="280" y2="388" class="arrow"/><rect x="321" y="343" width="28" height="18" fill="#ffffff" />
+          <text x="335" y="357" text-anchor="middle" class="small">No</text>
+<line x1="510" y1="320" x2="620" y2="388" class="arrow"/><rect x="547" y="343" width="36" height="18" fill="#ffffff" />
+          <text x="565" y="357" text-anchor="middle" class="small">Yes</text>
+<g><rect x="170" y="458" width="220" height="44" rx="22" class="box-accent"/><text x="280" y="485" text-anchor="middle" class="label">Status: declined</text></g>
+<g><rect x="510" y="458" width="220" height="44" rx="22" class="box-accent"/><text x="620" y="485" text-anchor="middle" class="label">Status: active</text></g>
+<line x1="280" y1="432" x2="280" y2="458" class="arrow"/>
+<line x1="620" y1="432" x2="620" y2="458" class="arrow"/>
+<g><rect x="480" y="538" width="280" height="44" rx="22" class="box-accent"/><text x="620" y="565" text-anchor="middle" class="label">Trainee gets dashboard access</text></g>
+<line x1="620" y1="502" x2="620" y2="538" class="arrow"/>
+<g><rect x="480" y="618" width="280" height="44" rx="22" class="box-accent"/><text x="620" y="645" text-anchor="middle" class="label">Messaging unlocked</text></g>
+<line x1="620" y1="582" x2="620" y2="618" class="arrow"/>
+<g>
+    <polygon points="620,710 690,740 620,770 550,740" fill="#ffffff" stroke="#f59e0b" stroke-width="2"/>
+    <text x="620" y="745" text-anchor="middle" class="label">End link?</text>
+  </g>
+<line x1="620" y1="662" x2="620" y2="710" class="arrow"/>
+<g><rect x="280" y="778" width="200" height="44" rx="22" class="box-accent"/><text x="380" y="805" text-anchor="middle" class="label">Coach ends link</text></g>
+<g><rect x="520" y="778" width="200" height="44" rx="22" class="box-accent"/><text x="620" y="805" text-anchor="middle" class="label">Continue</text></g>
+<line x1="580" y1="740" x2="380" y2="778" class="arrow"/><rect x="462" y="748" width="36" height="18" fill="#ffffff" />
+          <text x="480" y="762" text-anchor="middle" class="small">Yes</text>
+<line x1="660" y1="740" x2="660" y2="778" class="arrow"/><rect x="646" y="748" width="28" height="18" fill="#ffffff" />
+          <text x="660" y="762" text-anchor="middle" class="small">No</text>
+<g><rect x="280" y="848" width="200" height="44" rx="22" class="box-accent"/><text x="380" y="875" text-anchor="middle" class="label">Status: ended</text></g>
+<line x1="380" y1="822" x2="380" y2="848" class="arrow"/>
+<g><circle cx="280" cy="540" r="14" fill="#ef4444"/><text x="280" y="575" text-anchor="middle" class="label">End</text></g>
+<line x1="280" y1="502" x2="280" y2="525" class="arrow"/>
+</svg>

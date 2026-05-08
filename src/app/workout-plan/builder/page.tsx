@@ -333,7 +333,7 @@ export default function CustomPlanBuilder() {
                     <CardDescription>Configure this day&apos;s workout</CardDescription>
                   </div>
                   <Button
-                    variant={currentDay.isRestDay ? 'default' : 'outline'}
+                    variant={currentDay.isRestDay ? 'primary' : 'outline'}
                     onClick={() => toggleRestDay(currentStep - 1)}
                     size="sm"
                   >

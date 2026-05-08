@@ -24,17 +24,17 @@ export default function RootLayout({
         <script
           dangerouslySetInnerHTML={{
             __html: `
+              // Dark is the default; .light is the opt-in. Avoid FOUC by
+              // setting the class before paint.
               try {
-                const theme = localStorage.getItem('theme');
-                if (theme === 'dark') {
-                  document.documentElement.classList.add('dark');
-                } else if (theme === 'light') {
-                  document.documentElement.classList.remove('dark');
+                const saved = localStorage.getItem('theme');
+                const root = document.documentElement;
+                if (saved === 'light') {
+                  root.classList.add('light');
+                  root.classList.remove('dark');
                 } else {
-                  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  if (prefersDark) {
-                    document.documentElement.classList.add('dark');
-                  }
+                  root.classList.add('dark');
+                  root.classList.remove('light');
                 }
               } catch (e) {}
             `,

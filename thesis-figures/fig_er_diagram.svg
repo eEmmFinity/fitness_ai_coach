@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="680" viewBox="0 0 980 680">
+  <style>
+    text { font-family: 'Helvetica', 'Arial', sans-serif; fill: #101828; }
+    .title { font-size: 20px; font-weight: 700; }
+    .label { font-size: 14px; }
+    .small { font-size: 12px; fill: #475467; }
+    .mono { font-family: 'Menlo', 'Consolas', monospace; font-size: 12px; }
+    .arrow { stroke: #475467; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .arrow-thick { stroke: #5b4bff; stroke-width: 2; fill: none; marker-end: url(#arrowP); }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+    .box-primary { fill: #eceaff; stroke: #5b4bff; stroke-width: 1.5; }
+    .box-accent { fill: #dcf6f0; stroke: #06b6a3; stroke-width: 1.5; }
+    .actor-circle { fill: #ffffff; stroke: #101828; stroke-width: 2; }
+    .usecase { fill: #ffffff; stroke: #5b4bff; stroke-width: 1.5; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475467"/>
+    </marker>
+    <marker id="arrowP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b4bff"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="20" y="28" class="title">Entity-Relationship Diagram</text>
+<g>
+    <rect x="40" y="70" width="220" height="220" rx="8" class="box-primary"/>
+    <text x="150" y="185" text-anchor="middle" class="label"></text>
+  </g>
+<text x="50" y="95" class="label" font-weight="700">User</text>
+<text x="50" y="118" class="mono">_id: ObjectId (PK)</text>
+<text x="50" y="138" class="mono">email: string (unique)</text>
+<text x="50" y="158" class="mono">password: hashed</text>
+<text x="50" y="178" class="mono">role: enum</text>
+<text x="50" y="198" class="mono">coachApplication: subdoc</text>
+<text x="50" y="218" class="mono">coachProfile: subdoc</text>
+<text x="50" y="238" class="mono">subscription: subdoc</text>
+<text x="50" y="258" class="mono">emailVerified: bool</text>
+<text x="50" y="278" class="mono">suspendedAt: Date|null</text>
+<g>
+    <rect x="310" y="70" width="220" height="130" rx="8" class="box"/>
+    <text x="420" y="140" text-anchor="middle" class="label"></text>
+  </g>
+<text x="320" y="95" class="label" font-weight="700">WorkoutSession</text>
+<text x="320" y="118" class="mono">userId: ObjectId (FK)</text>
+<text x="320" y="138" class="mono">exerciseType: enum</text>
+<text x="320" y="158" class="mono">repCount, formScore</text>
+<text x="320" y="178" class="mono">duration, calories, tempo</text>
+<line x1="260" y1="130" x2="310" y2="130" class="arrow"/><rect x="263" y="119" width="44" height="18" fill="#ffffff" />
+          <text x="285" y="133" text-anchor="middle" class="small">1..n</text>
+<g>
+    <rect x="580" y="70" width="220" height="130" rx="8" class="box-accent"/>
+    <text x="690" y="140" text-anchor="middle" class="label"></text>
+  </g>
+<text x="590" y="95" class="label" font-weight="700">CoachClient</text>
+<text x="590" y="118" class="mono">coachId: ObjectId (FK)</text>
+<text x="590" y="138" class="mono">clientId: ObjectId (FK)</text>
+<text x="590" y="158" class="mono">status: enum</text>
+<text x="590" y="178" class="mono">requestedBy: enum</text>
+<line x1="260" y1="150" x2="580" y2="150" class="arrow"/><rect x="366" y="139" width="108" height="18" fill="#ffffff" />
+          <text x="420" y="153" text-anchor="middle" class="small">coach/client</text>
+<g>
+    <rect x="580" y="230" width="220" height="110" rx="8" class="box"/>
+    <text x="690" y="290" text-anchor="middle" class="label"></text>
+  </g>
+<text x="590" y="255" class="label" font-weight="700">CoachNote</text>
+<text x="590" y="278" class="mono">coachId, clientId (FK)</text>
+<text x="590" y="298" class="mono">sessionId: ObjectId|null</text>
+<text x="590" y="318" class="mono">body: string</text>
+<line x1="690" y1="200" x2="690" y2="230" class="arrow"/>
+<g>
+    <rect x="40" y="360" width="220" height="130" rx="8" class="box"/>
+    <text x="150" y="430" text-anchor="middle" class="label"></text>
+  </g>
+<text x="50" y="385" class="label" font-weight="700">Message</text>
+<text x="50" y="408" class="mono">coachId, clientId (FK)</text>
+<text x="50" y="428" class="mono">fromId, toId (FK)</text>
+<text x="50" y="448" class="mono">body: string</text>
+<text x="50" y="468" class="mono">readAt: Date|null</text>
+<line x1="150" y1="290" x2="150" y2="360" class="arrow"/>
+<g>
+    <rect x="310" y="360" width="220" height="130" rx="8" class="box"/>
+    <text x="420" y="430" text-anchor="middle" class="label"></text>
+  </g>
+<text x="320" y="385" class="label" font-weight="700">AuditLog</text>
+<text x="320" y="408" class="mono">actorId: ObjectId (FK)</text>
+<text x="320" y="428" class="mono">action: enum</text>
+<text x="320" y="448" class="mono">targetType, targetId</text>
+<text x="320" y="468" class="mono">meta: any</text>
+<line x1="420" y1="290" x2="420" y2="360" class="arrow"/>
+<g>
+    <rect x="580" y="360" width="220" height="130" rx="8" class="box"/>
+    <text x="690" y="430" text-anchor="middle" class="label"></text>
+  </g>
+<text x="590" y="385" class="label" font-weight="700">VerificationToken</text>
+<text x="590" y="408" class="mono">userId: ObjectId (FK)</text>
+<text x="590" y="428" class="mono">purpose: enum</text>
+<text x="590" y="448" class="mono">tokenHash: string</text>
+<text x="590" y="468" class="mono">expiresAt: Date (TTL)</text>
+<g>
+    <rect x="40" y="540" width="220" height="110" rx="8" class="box"/>
+    <text x="150" y="600" text-anchor="middle" class="label"></text>
+  </g>
+<text x="50" y="565" class="label" font-weight="700">WorkoutPlan</text>
+<text x="50" y="588" class="mono">userId (FK)</text>
+<text x="50" y="608" class="mono">type: ai_gen|custom</text>
+<text x="50" y="628" class="mono">weeklySchedule: array</text>
+<line x1="150" y1="290" x2="150" y2="540" class="arrow"/>
+<g>
+    <rect x="310" y="540" width="220" height="110" rx="8" class="box"/>
+    <text x="420" y="600" text-anchor="middle" class="label"></text>
+  </g>
+<text x="320" y="565" class="label" font-weight="700">Exercise</text>
+<text x="320" y="588" class="mono">name, category</text>
+<text x="320" y="608" class="mono">muscleGroups[]</text>
+<text x="320" y="628" class="mono">isCustom, createdBy</text>
+<text x="820" y="660" class="small">FK = foreign-key reference; subdoc = embedded document; TTL = time-to-live index.</text>
+</svg>

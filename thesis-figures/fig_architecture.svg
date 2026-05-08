@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560">
+  <style>
+    text { font-family: 'Helvetica', 'Arial', sans-serif; fill: #101828; }
+    .title { font-size: 20px; font-weight: 700; }
+    .label { font-size: 14px; }
+    .small { font-size: 12px; fill: #475467; }
+    .mono { font-family: 'Menlo', 'Consolas', monospace; font-size: 12px; }
+    .arrow { stroke: #475467; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .arrow-thick { stroke: #5b4bff; stroke-width: 2; fill: none; marker-end: url(#arrowP); }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+    .box-primary { fill: #eceaff; stroke: #5b4bff; stroke-width: 1.5; }
+    .box-accent { fill: #dcf6f0; stroke: #06b6a3; stroke-width: 1.5; }
+    .actor-circle { fill: #ffffff; stroke: #101828; stroke-width: 2; }
+    .usecase { fill: #ffffff; stroke: #5b4bff; stroke-width: 1.5; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475467"/>
+    </marker>
+    <marker id="arrowP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b4bff"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="20" y="28" class="title">System Architecture (3-tier)</text>
+<g>
+    <rect x="40" y="80" width="820" height="110" rx="8" class="box-primary"/>
+    <text x="450" y="140" text-anchor="middle" class="label"></text>
+  </g>
+<text x="60" y="110" class="label" font-weight="700">Client Tier — Browser</text>
+<g>
+    <rect x="70" y="130" width="200" height="50" rx="8" class="box"/>
+    <text x="170" y="152" text-anchor="middle" class="label">React UI</text><text x="170" y="168" text-anchor="middle" class="label">(Next.js App Router)</text>
+  </g>
+<g>
+    <rect x="290" y="130" width="200" height="50" rx="8" class="box"/>
+    <text x="390" y="152" text-anchor="middle" class="label">MediaPipe Pose</text><text x="390" y="168" text-anchor="middle" class="label">(WASM, on-device CV)</text>
+  </g>
+<g>
+    <rect x="510" y="130" width="200" height="50" rx="8" class="box"/>
+    <text x="610" y="152" text-anchor="middle" class="label">AuthContext</text><text x="610" y="168" text-anchor="middle" class="label">(JWT cookie)</text>
+  </g>
+<g>
+    <rect x="720" y="130" width="130" height="50" rx="8" class="box"/>
+    <text x="785" y="152" text-anchor="middle" class="label">Tailwind</text><text x="785" y="168" text-anchor="middle" class="label">Design System</text>
+  </g>
+<g>
+    <rect x="40" y="230" width="820" height="110" rx="8" class="box-accent"/>
+    <text x="450" y="290" text-anchor="middle" class="label"></text>
+  </g>
+<text x="60" y="260" class="label" font-weight="700">API Tier — Next.js Route Handlers (Node runtime)</text>
+<g>
+    <rect x="70" y="280" width="160" height="50" rx="8" class="box"/>
+    <text x="150" y="302" text-anchor="middle" class="label">Auth &amp; Roles</text><text x="150" y="318" text-anchor="middle" class="label">(withRole HOF)</text>
+  </g>
+<g>
+    <rect x="250" y="280" width="160" height="50" rx="8" class="box"/>
+    <text x="330" y="302" text-anchor="middle" class="label">Workout API</text><text x="330" y="318" text-anchor="middle" class="label">+ Stats Aggregator</text>
+  </g>
+<g>
+    <rect x="430" y="280" width="160" height="50" rx="8" class="box"/>
+    <text x="510" y="302" text-anchor="middle" class="label">Coach + Messaging</text><text x="510" y="318" text-anchor="middle" class="label">API</text>
+  </g>
+<g>
+    <rect x="610" y="280" width="160" height="50" rx="8" class="box"/>
+    <text x="690" y="310" text-anchor="middle" class="label">Admin + Audit</text>
+  </g>
+<g>
+    <rect x="790" y="280" width="60" height="50" rx="8" class="box"/>
+    <text x="820" y="302" text-anchor="middle" class="label">Stripe</text><text x="820" y="318" text-anchor="middle" class="label">Webhook</text>
+  </g>
+<g>
+    <rect x="40" y="380" width="820" height="130" rx="8" class="box"/>
+    <text x="450" y="450" text-anchor="middle" class="label"></text>
+  </g>
+<text x="60" y="410" class="label" font-weight="700">Data Tier</text>
+<g>
+    <rect x="70" y="430" width="200" height="60" rx="8" class="box"/>
+    <text x="170" y="457" text-anchor="middle" class="label">MongoDB</text><text x="170" y="473" text-anchor="middle" class="label">Users · Sessions · Plans</text>
+  </g>
+<g>
+    <rect x="290" y="430" width="200" height="60" rx="8" class="box"/>
+    <text x="390" y="457" text-anchor="middle" class="label">MongoDB</text><text x="390" y="473" text-anchor="middle" class="label">CoachClient · Notes · Messages</text>
+  </g>
+<g>
+    <rect x="510" y="430" width="180" height="60" rx="8" class="box"/>
+    <text x="600" y="457" text-anchor="middle" class="label">MongoDB</text><text x="600" y="473" text-anchor="middle" class="label">Audit · RateLimit · Tokens</text>
+  </g>
+<g>
+    <rect x="710" y="430" width="140" height="60" rx="8" class="box-primary"/>
+    <text x="780" y="457" text-anchor="middle" class="label">OpenAI API</text><text x="780" y="473" text-anchor="middle" class="label">(Pro tier only)</text>
+  </g>
+<line x1="450" y1="190" x2="450" y2="230" class="arrow-thick"/>
+<line x1="450" y1="340" x2="450" y2="380" class="arrow-thick"/>
+<text x="20" y="540" class="small">Vertical arrows show request/response between tiers; cross-tier security via JWT in HTTP-only cookies.</text>
+</svg>

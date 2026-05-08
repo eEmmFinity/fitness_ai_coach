@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500">
+  <style>
+    text { font-family: 'Helvetica', 'Arial', sans-serif; fill: #101828; }
+    .title { font-size: 20px; font-weight: 700; }
+    .label { font-size: 14px; }
+    .small { font-size: 12px; fill: #475467; }
+    .mono { font-family: 'Menlo', 'Consolas', monospace; font-size: 12px; }
+    .arrow { stroke: #475467; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .arrow-thick { stroke: #5b4bff; stroke-width: 2; fill: none; marker-end: url(#arrowP); }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+    .box-primary { fill: #eceaff; stroke: #5b4bff; stroke-width: 1.5; }
+    .box-accent { fill: #dcf6f0; stroke: #06b6a3; stroke-width: 1.5; }
+    .actor-circle { fill: #ffffff; stroke: #101828; stroke-width: 2; }
+    .usecase { fill: #ffffff; stroke: #5b4bff; stroke-width: 1.5; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475467"/>
+    </marker>
+    <marker id="arrowP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b4bff"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="20" y="28" class="title">State Machine: Squat Rep Detector</text>
+<g><circle cx="80" cy="250" r="14" fill="#101828"/><text x="80" y="285" text-anchor="middle" class="label">Start</text></g>
+<g><rect x="180" y="200" width="140" height="100" rx="18" fill="#eceaff" stroke="#5b4bff" stroke-width="2"/>
+    <text x="250" y="248" text-anchor="middle" class="label">IDLE</text><text x="250" y="262" text-anchor="middle" class="label">(no detection)</text>
+  </g>
+<g><rect x="400" y="100" width="140" height="100" rx="18" fill="#eceaff" stroke="#5b4bff" stroke-width="2"/>
+    <text x="470" y="148" text-anchor="middle" class="label">READY</text><text x="470" y="162" text-anchor="middle" class="label">(angle &gt; 160°)</text>
+  </g>
+<g><rect x="620" y="200" width="140" height="100" rx="18" fill="#eceaff" stroke="#5b4bff" stroke-width="2"/>
+    <text x="690" y="248" text-anchor="middle" class="label">DOWN</text><text x="690" y="262" text-anchor="middle" class="label">(angle &lt; 100°)</text>
+  </g>
+<g><rect x="400" y="320" width="140" height="100" rx="18" fill="#eceaff" stroke="#5b4bff" stroke-width="2"/>
+    <text x="470" y="361" text-anchor="middle" class="label">UP</text><text x="470" y="375" text-anchor="middle" class="label">(angle &gt; 160°)</text><text x="470" y="389" text-anchor="middle" class="label">repCount++</text>
+  </g>
+<line x1="94" y1="250" x2="180" y2="250" class="arrow"/>
+<g>
+    <path d="M320,230 Q360,130 400,150" stroke="#475467" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+    <text x="360" y="130" text-anchor="middle" class="small">visibility OK</text>
+  </g>
+<g>
+    <path d="M540,130 Q580,130 620,230" stroke="#475467" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+    <text x="580" y="130" text-anchor="middle" class="small">descent</text>
+  </g>
+<g>
+    <path d="M620,280 Q580,380 540,380" stroke="#475467" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+    <text x="580" y="380" text-anchor="middle" class="small">ascent (rep!)</text>
+  </g>
+<g>
+    <path d="M400,380 Q360,320 320,280" stroke="#475467" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+    <text x="360" y="320" text-anchor="middle" class="small">reset</text>
+  </g>
+<text x="20" y="470" class="small">Hip-knee-ankle angle drives transitions. EMA-smoothed form score is updated each frame regardless of state.</text>
+</svg>

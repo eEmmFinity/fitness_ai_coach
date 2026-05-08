@@ -22,10 +22,29 @@ interface WorkoutPlan {
   createdAt?: Date;
 }
 
+export type UserRole = 'user' | 'coach' | 'admin' | 'pending_coach';
+
+export interface CoachApplication {
+  status: 'pending' | 'approved' | 'rejected';
+  bio?: string;
+  appliedAt: Date;
+  decidedAt?: Date | null;
+  decidedBy?: mongoose.Types.ObjectId | null;
+  rejectionReason?: string | null;
+}
+
+export interface CoachProfile {
+  bio?: string;
+  approvedAt?: Date | null;
+}
+
 export interface IUser extends Document {
   email: string;
   password: string;
   name: string;
+  role: UserRole;
+  coachApplication?: CoachApplication | null;
+  coachProfile?: CoachProfile | null;
   age?: number;
   gender?: 'male' | 'female' | 'other';
   height?: number; // in cm
@@ -40,6 +59,15 @@ export interface IUser extends Document {
   workoutPlans?: mongoose.Types.ObjectId[]; // NEW: Array of WorkoutPlan references
   activeWorkoutPlanId?: mongoose.Types.ObjectId; // NEW: Currently active plan
   customExercises?: mongoose.Types.ObjectId[]; // NEW: User's custom exercises
+  suspendedAt?: Date | null;
+  emailVerified: boolean;
+  subscription: {
+    tier: 'free' | 'pro';
+    status: 'active' | 'past_due' | 'canceled' | 'incomplete' | 'none';
+    stripeCustomerId?: string | null;
+    stripeSubscriptionId?: string | null;
+    currentPeriodEnd?: Date | null;
+  };
   createdAt: Date;
   updatedAt: Date;
 }
@@ -63,6 +91,31 @@ const UserSchema: Schema = new Schema(
       type: String,
       required: [true, 'Name is required'],
       trim: true,
+    },
+    role: {
+      type: String,
+      enum: ['user', 'coach', 'admin', 'pending_coach'],
+      default: 'user',
+      required: true,
+      index: true,
+    },
+    coachApplication: {
+      type: {
+        status: { type: String, enum: ['pending', 'approved', 'rejected'] },
+        bio: { type: String, maxlength: 1000 },
+        appliedAt: { type: Date },
+        decidedAt: { type: Date, default: null },
+        decidedBy: { type: Schema.Types.ObjectId, ref: 'User', default: null },
+        rejectionReason: { type: String, default: null, maxlength: 500 },
+      },
+      default: null,
+    },
+    coachProfile: {
+      type: {
+        bio: { type: String, maxlength: 1000 },
+        approvedAt: { type: Date, default: null },
+      },
+      default: null,
     },
     age: {
       type: Number,
@@ -137,6 +190,26 @@ const UserSchema: Schema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Exercise',
     }],
+    suspendedAt: {
+      type: Date,
+      default: null,
+    },
+    emailVerified: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
+    subscription: {
+      tier: { type: String, enum: ['free', 'pro'], default: 'free' },
+      status: {
+        type: String,
+        enum: ['active', 'past_due', 'canceled', 'incomplete', 'none'],
+        default: 'none',
+      },
+      stripeCustomerId: { type: String, default: null, index: true },
+      stripeSubscriptionId: { type: String, default: null },
+      currentPeriodEnd: { type: Date, default: null },
+    },
   },
   {
     timestamps: true,

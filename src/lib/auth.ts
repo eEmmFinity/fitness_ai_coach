@@ -1,31 +1,31 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-fallback-secret-key-change-in-production';
+const JWT_SECRET = process.env.JWT_SECRET as string;
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET environment variable is not set');
+}
+
+export type UserRole = 'user' | 'coach' | 'admin' | 'pending_coach';
 
 export interface TokenPayload {
   userId: string;
   email: string;
+  role: UserRole;
 }
 
-/**
- * Generate JWT token for user authentication
- */
+/* Generate JWT token for user authentication*/
 export function generateToken(payload: TokenPayload): string {
   return jwt.sign(payload, JWT_SECRET, {
     expiresIn: '7d', // Token expires in 7 days
   });
 }
 
-/**
- * Verify JWT token and return payload
- */
 export function verifyToken(token: string): TokenPayload | null {
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as TokenPayload;
+    const decoded = jwt.verify(token, JWT_SECRET) as unknown as TokenPayload;
     return decoded;
-  } catch (error) {
-    console.error('Token verification failed:', error);
+  } catch {
     return null;
   }
 }

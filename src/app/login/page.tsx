@@ -1,25 +1,31 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { homeFor } from '@/lib/roleHome';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/Card';
-import { Dumbbell } from 'lucide-react';
+import { AuthShell } from '@/components/auth/AuthShell';
+import { Mail, Lock } from 'lucide-react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, user, loading: authLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!authLoading && user) router.replace(homeFor(user.role));
+  }, [user, authLoading, router]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-
     try {
       await login(email, password);
     } catch (err: any) {
@@ -30,70 +36,68 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
-      <div className="w-full max-w-md animate-fade-in">
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center">
-              <Dumbbell className="h-10 w-10 text-primary-foreground" />
-            </div>
-          </div>
-          <h1 className="text-3xl font-bold text-foreground">Welcome Back</h1>
-          <p className="text-muted-foreground mt-2">Sign in to continue your fitness journey</p>
+    <AuthShell side="login">
+      <div className="space-y-8">
+        <div>
+          <h2 className="text-2xl font-semibold tracking-tight">Sign in</h2>
+          <p className="text-sm text-muted-foreground mt-1">
+            Don't have an account?{' '}
+            <Link href="/register" className="text-primary hover:underline font-medium">
+              Create one
+            </Link>
+          </p>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Login</CardTitle>
-            <CardDescription>Enter your credentials to access your account</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {error && (
-                <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-500 text-sm">
-                  {error}
-                </div>
-              )}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {error && (
+            <div className="px-3 py-2.5 rounded-md bg-danger/10 border border-danger/30 text-danger text-sm">
+              {error}
+            </div>
+          )}
 
-              <Input
-                type="email"
-                label="Email Address"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={loading}
-              />
+          <Input
+            type="email"
+            label="Email"
+            placeholder="you@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            disabled={loading}
+            leftAdornment={<Mail className="h-4 w-4" />}
+            autoComplete="email"
+          />
 
-              <Input
-                type="password"
-                label="Password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                disabled={loading}
-              />
-
-              <Button
-                type="submit"
-                size="lg"
-                className="w-full"
-                disabled={loading}
+          <div>
+            <Input
+              type="password"
+              label="Password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              disabled={loading}
+              leftAdornment={<Lock className="h-4 w-4" />}
+              autoComplete="current-password"
+            />
+            <div className="mt-2 text-right">
+              <Link
+                href="/forgot-password"
+                className="text-xs text-muted-foreground hover:text-foreground"
               >
-                {loading ? 'Signing in...' : 'Sign In'}
-              </Button>
-            </form>
-
-            <div className="mt-6 text-center text-sm">
-              <span className="text-muted-foreground">Don't have an account? </span>
-              <Link href="/register" className="text-primary hover:underline font-medium">
-                Sign up
+                Forgot password?
               </Link>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+
+          <Button type="submit" size="lg" className="w-full" isLoading={loading}>
+            {loading ? 'Signing in…' : 'Sign in'}
+          </Button>
+        </form>
+
+        <p className="text-xs text-muted-foreground text-center">
+          By signing in you agree to our terms of service.
+        </p>
       </div>
-    </div>
+    </AuthShell>
   );
 }

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="680" viewBox="0 0 1000 680">
+  <style>
+    text { font-family: 'Helvetica', 'Arial', sans-serif; fill: #101828; }
+    .title { font-size: 20px; font-weight: 700; }
+    .label { font-size: 14px; }
+    .small { font-size: 12px; fill: #475467; }
+    .mono { font-family: 'Menlo', 'Consolas', monospace; font-size: 12px; }
+    .arrow { stroke: #475467; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .arrow-thick { stroke: #5b4bff; stroke-width: 2; fill: none; marker-end: url(#arrowP); }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+    .box-primary { fill: #eceaff; stroke: #5b4bff; stroke-width: 1.5; }
+    .box-accent { fill: #dcf6f0; stroke: #06b6a3; stroke-width: 1.5; }
+    .actor-circle { fill: #ffffff; stroke: #101828; stroke-width: 2; }
+    .usecase { fill: #ffffff; stroke: #5b4bff; stroke-width: 1.5; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475467"/>
+    </marker>
+    <marker id="arrowP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b4bff"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="20" y="28" class="title">Sequence: Live Workout (Camera → CV → Save)</text>
+<g>
+    <rect x="60" y="60" width="120" height="36" class="box-primary"/>
+    <text x="120" y="83" text-anchor="middle" class="label" font-weight="700">User</text>
+    <line x1="120" y1="96" x2="120" y2="640" stroke="#475467" stroke-width="1" stroke-dasharray="4 4"/>
+  </g>
+<g>
+    <rect x="240" y="60" width="120" height="36" class="box-primary"/>
+    <text x="300" y="83" text-anchor="middle" class="label" font-weight="700">Live UI</text>
+    <line x1="300" y1="96" x2="300" y2="640" stroke="#475467" stroke-width="1" stroke-dasharray="4 4"/>
+  </g>
+<g>
+    <rect x="420" y="60" width="120" height="36" class="box-primary"/>
+    <text x="480" y="83" text-anchor="middle" class="label" font-weight="700">PoseDetector</text>
+    <line x1="480" y1="96" x2="480" y2="640" stroke="#475467" stroke-width="1" stroke-dasharray="4 4"/>
+  </g>
+<g>
+    <rect x="600" y="60" width="120" height="36" class="box-primary"/>
+    <text x="660" y="83" text-anchor="middle" class="label" font-weight="700">Detector
+(Squat/Push/Plank)</text>
+    <line x1="660" y1="96" x2="660" y2="640" stroke="#475467" stroke-width="1" stroke-dasharray="4 4"/>
+  </g>
+<g>
+    <rect x="810" y="60" width="120" height="36" class="box-primary"/>
+    <text x="870" y="83" text-anchor="middle" class="label" font-weight="700">/api/workout-
+sessions</text>
+    <line x1="870" y1="96" x2="870" y2="640" stroke="#475467" stroke-width="1" stroke-dasharray="4 4"/>
+  </g>
+<g>
+    <line x1="120" y1="130" x2="300" y2="130" class="arrow"/>
+    <text x="210" y="124" text-anchor="middle" class="small">click Start</text>
+  </g>
+<rect x="295" y="130" width="10" height="470" fill="#eceaff" stroke="#5b4bff"/>
+<g>
+    <line x1="300" y1="170" x2="480" y2="170" class="arrow"/>
+    <text x="390" y="164" text-anchor="middle" class="small">initialize(video)</text>
+  </g>
+<rect x="475" y="170" width="10" height="410" fill="#eceaff" stroke="#5b4bff"/>
+<g>
+    <line x1="480" y1="210" x2="480" y2="210" class="arrow"/>
+    <text x="480" y="204" text-anchor="middle" class="small">MediaPipe loop @30fps</text>
+  </g>
+<g>
+    <line x1="480" y1="250" x2="660" y2="250" class="arrow"/>
+    <text x="570" y="244" text-anchor="middle" class="small">onResults(landmarks)</text>
+  </g>
+<rect x="655" y="250" width="10" height="310" fill="#eceaff" stroke="#5b4bff"/>
+<g>
+    <line x1="660" y1="290" x2="660" y2="290" class="arrow"/>
+    <text x="660" y="284" text-anchor="middle" class="small">updateState(angles)</text>
+  </g>
+<g>
+    <line x1="660" y1="320" x2="660" y2="320" class="arrow"/>
+    <text x="660" y="314" text-anchor="middle" class="small">analyzeForm() → EMA score</text>
+  </g>
+<g>
+    <line x1="660" y1="360" x2="300" y2="360" class="arrow"/>
+    <text x="480" y="354" text-anchor="middle" class="small">metrics {reps, score, …}</text>
+  </g>
+<g>
+    <line x1="300" y1="400" x2="300" y2="400" class="arrow"/>
+    <text x="300" y="394" text-anchor="middle" class="small">render UI (rep counter)</text>
+  </g>
+<g>
+    <line x1="120" y1="460" x2="300" y2="460" class="arrow"/>
+    <text x="210" y="454" text-anchor="middle" class="small">click Stop</text>
+  </g>
+<g>
+    <line x1="300" y1="500" x2="870" y2="500" class="arrow"/>
+    <text x="585" y="494" text-anchor="middle" class="small">POST {exerciseType, repCount, …}</text>
+  </g>
+<rect x="865" y="500" width="10" height="80" fill="#eceaff" stroke="#5b4bff"/>
+<g>
+    <line x1="870" y1="560" x2="300" y2="560" class="arrow"/>
+    <text x="585" y="554" text-anchor="middle" class="small">201 Created (sessionId)</text>
+  </g>
+<text x="20" y="660" class="small">No video frames leave the device. Only aggregated numerical metrics are persisted.</text>
+</svg>

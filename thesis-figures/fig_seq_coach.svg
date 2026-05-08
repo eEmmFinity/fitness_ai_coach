@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="640" viewBox="0 0 1000 640">
+  <style>
+    text { font-family: 'Helvetica', 'Arial', sans-serif; fill: #101828; }
+    .title { font-size: 20px; font-weight: 700; }
+    .label { font-size: 14px; }
+    .small { font-size: 12px; fill: #475467; }
+    .mono { font-family: 'Menlo', 'Consolas', monospace; font-size: 12px; }
+    .arrow { stroke: #475467; stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .arrow-thick { stroke: #5b4bff; stroke-width: 2; fill: none; marker-end: url(#arrowP); }
+    .box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+    .box-primary { fill: #eceaff; stroke: #5b4bff; stroke-width: 1.5; }
+    .box-accent { fill: #dcf6f0; stroke: #06b6a3; stroke-width: 1.5; }
+    .actor-circle { fill: #ffffff; stroke: #101828; stroke-width: 2; }
+    .usecase { fill: #ffffff; stroke: #5b4bff; stroke-width: 1.5; }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475467"/>
+    </marker>
+    <marker id="arrowP" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b4bff"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
+  <text x="20" y="28" class="title">Sequence: Coach Application + Approval</text>
+<g>
+    <rect x="50" y="60" width="120" height="36" class="box-primary"/>
+    <text x="110" y="83" text-anchor="middle" class="label" font-weight="700">Applicant</text>
+    <line x1="110" y1="96" x2="110" y2="640" stroke="#475467" stroke-width="1" stroke-dasharray="4 4"/>
+  </g>
+<g>
+    <rect x="230" y="60" width="120" height="36" class="box-primary"/>
+    <text x="290" y="83" text-anchor="middle" class="label" font-weight="700">Register</text>
+    <line x1="290" y1="96" x2="290" y2="640" stroke="#475467" stroke-width="1" stroke-dasharray="4 4"/>
+  </g>
+<g>
+    <rect x="410" y="60" width="120" height="36" class="box-primary"/>
+    <text x="470" y="83" text-anchor="middle" class="label" font-weight="700">/api/auth/
+register</text>
+    <line x1="470" y1="96" x2="470" y2="640" stroke="#475467" stroke-width="1" stroke-dasharray="4 4"/>
+  </g>
+<g>
+    <rect x="600" y="60" width="120" height="36" class="box-primary"/>
+    <text x="660" y="83" text-anchor="middle" class="label" font-weight="700">Admin</text>
+    <line x1="660" y1="96" x2="660" y2="640" stroke="#475467" stroke-width="1" stroke-dasharray="4 4"/>
+  </g>
+<g>
+    <rect x="810" y="60" width="120" height="36" class="box-primary"/>
+    <text x="870" y="83" text-anchor="middle" class="label" font-weight="700">/api/admin/
+coach-apps</text>
+    <line x1="870" y1="96" x2="870" y2="640" stroke="#475467" stroke-width="1" stroke-dasharray="4 4"/>
+  </g>
+<g>
+    <line x1="110" y1="130" x2="290" y2="130" class="arrow"/>
+    <text x="200" y="124" text-anchor="middle" class="small">pick "Coach", write bio</text>
+  </g>
+<g>
+    <line x1="290" y1="170" x2="470" y2="170" class="arrow"/>
+    <text x="380" y="164" text-anchor="middle" class="small">POST {role: coach, bio}</text>
+  </g>
+<rect x="465" y="170" width="10" height="110" fill="#eceaff" stroke="#5b4bff"/>
+<g>
+    <line x1="470" y1="210" x2="470" y2="210" class="arrow"/>
+    <text x="470" y="204" text-anchor="middle" class="small">create user (role: pending_coach)</text>
+  </g>
+<g>
+    <line x1="470" y1="240" x2="470" y2="240" class="arrow"/>
+    <text x="470" y="234" text-anchor="middle" class="small">email admins (notification)</text>
+  </g>
+<g>
+    <line x1="470" y1="280" x2="290" y2="280" class="arrow"/>
+    <text x="380" y="274" text-anchor="middle" class="small">201 Created</text>
+  </g>
+<g>
+    <line x1="660" y1="360" x2="870" y2="360" class="arrow"/>
+    <text x="765" y="354" text-anchor="middle" class="small">GET /coach-applications</text>
+  </g>
+<rect x="865" y="360" width="10" height="200" fill="#eceaff" stroke="#5b4bff"/>
+<g>
+    <line x1="870" y1="400" x2="660" y2="400" class="arrow"/>
+    <text x="765" y="394" text-anchor="middle" class="small">[applicants]</text>
+  </g>
+<g>
+    <line x1="660" y1="440" x2="870" y2="440" class="arrow"/>
+    <text x="765" y="434" text-anchor="middle" class="small">PATCH {action: approve}</text>
+  </g>
+<g>
+    <line x1="870" y1="480" x2="870" y2="480" class="arrow"/>
+    <text x="870" y="474" text-anchor="middle" class="small">role := coach
+coachProfile.bio := app.bio</text>
+  </g>
+<g>
+    <line x1="870" y1="520" x2="870" y2="520" class="arrow"/>
+    <text x="870" y="514" text-anchor="middle" class="small">audit log entry</text>
+  </g>
+<g>
+    <line x1="870" y1="560" x2="660" y2="560" class="arrow"/>
+    <text x="765" y="554" text-anchor="middle" class="small">200 OK</text>
+  </g>
+<text x="20" y="610" class="small">Admin can also reject; reason is required and emailed to applicant.</text>
+</svg>

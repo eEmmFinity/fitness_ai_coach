@@ -1,8 +1,3 @@
-/**
- * PoseDetector - Core MediaPipe Pose Detection Wrapper
- * Handles real-time pose landmark detection from webcam feed
- */
-
 import { Pose, Results } from '@mediapipe/pose';
 import { Camera } from '@mediapipe/camera_utils';
 import type { PoseResults } from '../types';
@@ -11,31 +6,31 @@ export class PoseDetector {
   private pose: Pose | null = null;
   private camera: Camera | null = null;
   private onResultsCallback: ((results: PoseResults) => void) | null = null;
+  private initializing = false;
 
-  /**
-   * Initialize MediaPipe Pose with optimized settings
-   * @param videoElement - HTML video element for camera feed
-   */
   async initialize(videoElement: HTMLVideoElement): Promise<void> {
+    // Fix #5: guard against concurrent calls
+    if (this.initializing || this.isRunning()) return;
+    this.initializing = true;
+
     try {
-      // Initialize MediaPipe Pose
       this.pose = new Pose({
         locateFile: (file) =>
           `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
       });
 
       this.pose.setOptions({
-        modelComplexity: 1, // 0=Lite, 1=Full, 2=Heavy (balance speed/accuracy)
+        modelComplexity: 1,
         smoothLandmarks: true,
-        enableSegmentation: false, // Disable background segmentation for performance
+        enableSegmentation: false,
         smoothSegmentation: false,
         minDetectionConfidence: 0.7,
         minTrackingConfidence: 0.7,
       });
 
-      // Set up results callback
       this.pose.onResults((results: Results) => {
         if (this.onResultsCallback && results.poseLandmarks) {
+          // Fix #9: pass world landmarks so detectors can use 3D metric coordinates
           this.onResultsCallback({
             poseLandmarks: results.poseLandmarks,
             poseWorldLandmarks: results.poseWorldLandmarks,
@@ -43,7 +38,6 @@ export class PoseDetector {
         }
       });
 
-      // Initialize camera
       this.camera = new Camera(videoElement, {
         onFrame: async () => {
           if (this.pose && videoElement.readyState === 4) {
@@ -55,24 +49,15 @@ export class PoseDetector {
       });
 
       await this.camera.start();
-      console.log('✅ PoseDetector initialized successfully');
-    } catch (error) {
-      console.error('❌ PoseDetector initialization failed:', error);
-      throw error;
+    } finally {
+      this.initializing = false;
     }
   }
 
-  /**
-   * Register callback for pose detection results
-   * @param callback - Function to handle pose landmarks
-   */
   onResults(callback: (results: PoseResults) => void): void {
     this.onResultsCallback = callback;
   }
 
-  /**
-   * Stop camera and clean up resources
-   */
   async stop(): Promise<void> {
     if (this.camera) {
       this.camera.stop();
@@ -82,13 +67,13 @@ export class PoseDetector {
       this.pose.close();
       this.pose = null;
     }
-    console.log('🛑 PoseDetector stopped');
   }
 
-  /**
-   * Check if detector is running
-   */
   isRunning(): boolean {
     return this.camera !== null && this.pose !== null;
+  }
+
+  isInitializing(): boolean {
+    return this.initializing;
   }
 }

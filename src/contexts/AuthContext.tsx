@@ -2,11 +2,16 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { homeFor } from '@/lib/roleHome';
+
+type UserRole = 'user' | 'coach' | 'admin' | 'pending_coach';
 
 interface User {
   id: string;
   email: string;
   name: string;
+  role: UserRole;
+  emailVerified?: boolean;
   age?: number;
   gender?: string;
   height?: number;
@@ -19,11 +24,19 @@ interface User {
   maintenanceCalories?: number;
 }
 
+export interface RegisterPayload {
+  email: string;
+  password: string;
+  name: string;
+  intendedRole?: 'user' | 'coach';
+  bio?: string;
+}
+
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, name: string) => Promise<void>;
+  register: (payload: RegisterPayload) => Promise<void>;
   logout: () => Promise<void>;
   updateUser: (userData: Partial<User>) => void;
   refreshUser: () => Promise<void>;
@@ -69,14 +82,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     setUser(data.user);
-    router.push('/dashboard');
+    router.push(homeFor(data.user?.role));
   };
 
-  const register = async (email: string, password: string, name: string) => {
+  const register = async (payload: RegisterPayload) => {
     const response = await fetch('/api/auth/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, name }),
+      body: JSON.stringify(payload),
     });
 
     const data = await response.json();
@@ -86,7 +99,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     setUser(data.user);
-    router.push('/dashboard');
+    router.push(homeFor(data.user?.role));
   };
 
   const logout = async () => {

@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
+import type { ChatCompletionMessageParam } from 'openai/resources/chat/completions';
+import { verifyToken } from '@/lib/auth';
+import { getUserSubscription, can } from '@/lib/entitlements';
 
 // Initialize OpenAI client
 const openai = new OpenAI({
@@ -8,6 +11,25 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
   try {
+    const token = request.cookies.get('token')?.value;
+    const decoded = token ? verifyToken(token) : null;
+    if (!decoded) {
+      return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+    }
+
+    const sub = await getUserSubscription(decoded.userId);
+    if (!can(sub, 'aiChat')) {
+      return NextResponse.json(
+        {
+          error: 'AI Coach is a Pro feature',
+          upgrade: '/billing',
+          response:
+            'AI Coach is available on the Pro plan. Upgrade in Billing to chat with the assistant.',
+        },
+        { status: 402 }
+      );
+    }
+
     const body = await request.json();
     const { message, conversationHistory } = body;
 
@@ -41,7 +63,7 @@ export async function POST(request: NextRequest) {
 Keep responses concise, practical, and actionable. Use clear language that beginners can understand while being detailed enough for experienced fitness enthusiasts.`;
 
     // Build messages array
-    const messages: any[] = [
+    const messages: ChatCompletionMessageParam[] = [
       { role: 'system', content: systemPrompt },
     ];
 
